@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-@FxmlView("MainController.fxml")
+@FxmlView("Main.fxml")
 public class MainController {
 
     private final FxWeaver fxWeaver;
