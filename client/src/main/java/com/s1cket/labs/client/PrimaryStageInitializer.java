@@ -1,4 +1,4 @@
-package com.s1cket.labs.client.component;
+package com.s1cket.labs.client;
 
 import com.s1cket.labs.client.controller.MainController;
 import com.s1cket.labs.client.events.StageReadyEvent;

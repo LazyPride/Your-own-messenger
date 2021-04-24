@@ -1,4 +1,4 @@
-package com.s1cket.labs.client.controller.user;
+package com.s1cket.labs.client.controller.user.chat;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
@@ -8,15 +8,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ChatScreen {
+public class HistoryCotroller {
 
     @FXML
     BorderPane borderPane;
 
     private final FxWeaver fxWeaver;
-    private final Logger logger = LoggerFactory.getLogger(ChatScreen.class);
+    private final Logger logger = LoggerFactory.getLogger(HistoryCotroller.class);
 
-    public ChatScreen(FxWeaver fxWeaver) {
+    public HistoryCotroller(FxWeaver fxWeaver) {
         this.fxWeaver = fxWeaver;
         logger.debug("Constructor");
     }

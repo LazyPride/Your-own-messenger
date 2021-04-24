@@ -1,28 +1,20 @@
 package com.s1cket.labs.client.controller;
 
-import com.s1cket.labs.client.controller.user.ChatScreen;
-import com.s1cket.labs.client.controller.user.LoginScreen;
+import com.s1cket.labs.client.controller.user.LoginController;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import net.rgielen.fxweaver.core.FxContextLoader;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
-@FxmlView("Main.fxml")
+@FxmlView("MainController.fxml")
 public class MainController {
     @FXML
     private TabPane tabPane;
@@ -57,8 +49,8 @@ public class MainController {
     private Tab createTab() {
         Tab tab = new Tab("New User");
         tab.setOnSelectionChanged(this::onSelectionChanged);
-        FxControllerAndView<LoginScreen, StackPane> loginScreen =
-                fxWeaver.load(LoginScreen.class);
+        FxControllerAndView<LoginController, StackPane> loginScreen =
+                fxWeaver.load(LoginController.class);
         tab.setContent(loginScreen.getView().get());
         return tab;
     }
@@ -67,8 +59,8 @@ public class MainController {
         logger.debug("onSelectionChanged");
         Tab tab = (Tab) event.getTarget();
         if (tab.isSelected()) {
-            FxControllerAndView<LoginScreen, StackPane> loginScreen =
-                    fxWeaver.load(LoginScreen.class);
+            FxControllerAndView<LoginController, StackPane> loginScreen =
+                    fxWeaver.load(LoginController.class);
             loginScreen.getController().setParentTab(tab);
         }
     }

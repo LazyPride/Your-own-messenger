@@ -12,16 +12,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-@FxmlView("LoginScreen.fxml")
-public class LoginScreen {
+@FxmlView("LoginController.fxml")
+public class LoginController {
     @FXML
     StackPane stackPane;
 
     private Tab parentTab;
     private final FxWeaver fxWeaver;
-    private final Logger logger = LoggerFactory.getLogger(LoginScreen.class);
+    private final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-    public LoginScreen(FxWeaver fxWeaver) {
+    public LoginController(FxWeaver fxWeaver) {
         this.fxWeaver = fxWeaver;
         logger.debug("Constructor");
     }
@@ -35,8 +35,8 @@ public class LoginScreen {
     public void login() {
         logger.debug("login");
 
-        FxControllerAndView<ChatScreen, BorderPane> chatScreen =
-                fxWeaver.load(ChatScreen.class);
+        FxControllerAndView<ChatController, BorderPane> chatScreen =
+                fxWeaver.load(ChatController.class);
         this.parentTab.setContent(chatScreen.getView().get());
     }
 

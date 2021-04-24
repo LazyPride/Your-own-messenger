@@ -9,7 +9,7 @@
 
 <StackPane prefWidth="231.0"
            xmlns:fx="http://javafx.com/fxml"
-           fx:controller="com.s1cket.labs.client.controller.user.LoginScreen"
+           fx:controller="com.s1cket.labs.client.controller.user.LoginController"
            fx:id="stackPane">
     <children>
         <VBox spacing="10.0">

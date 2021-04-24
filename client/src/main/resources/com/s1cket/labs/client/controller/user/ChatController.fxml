@@ -12,13 +12,19 @@
             xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:id="borderPane"
-            fx:controller="com.s1cket.labs.client.controller.user.ChatScreen">
+            fx:controller="com.s1cket.labs.client.controller.user.ChatController">
     <center>
-        <fx:include source="chat/Chat.fxml"/>
+        <VBox>
+            <children>
+                <fx:include source="chat/HeaderController.fxml"/>
+                <fx:include source="chat/HistoryController.fxml"/>
+                <fx:include source="chat/SendController.fxml"/>
+            </children>
+        </VBox>
     </center>
     <right>
     </right>
     <left>
-        <fx:include source="menu/InterlocutorMenu.fxml"/>
+        <fx:include source="menu/InterlocutorMenuController.fxml"/>
     </left>
 </BorderPane>
