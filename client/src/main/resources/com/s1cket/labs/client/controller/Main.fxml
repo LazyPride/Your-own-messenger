@@ -6,11 +6,12 @@
 
 <TabPane prefHeight="432.0"
          prefWidth="601.0"
-         tabClosingPolicy="UNAVAILABLE"
          BorderPane.alignment="CENTER"
          xmlns="http://javafx.com/javafx/8"
-         xmlns:fx="http://javafx.com/fxml/1">
+         xmlns:fx="http://javafx.com/fxml/1"
+         fx:id="tabPane"
+         fx:controller="com.s1cket.labs.client.controller.MainController">
    <tabs>
-      <fx:include source="TabUser.fxml"/>
+      <Tab fx:id="tabAdd" text="+" onSelectionChanged="#onTabAdd"/>
    </tabs>
 </TabPane>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<BorderPane prefHeight="400.0"
+            prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:id="borderPane"
+            fx:controller="com.s1cket.labs.client.controller.user.ChatScreen">
+    <center>
+        <fx:include source="chat/Chat.fxml"/>
+    </center>
+    <right>
+    </right>
+    <left>
+        <fx:include source="menu/InterlocutorMenu.fxml"/>
+    </left>
+</BorderPane>
