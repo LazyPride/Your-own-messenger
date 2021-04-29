@@ -4,14 +4,15 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane prefHeight="432.0"
-         prefWidth="601.0"
-         BorderPane.alignment="CENTER"
-         xmlns="http://javafx.com/javafx/8"
-         xmlns:fx="http://javafx.com/fxml/1"
-         fx:id="tabPane"
-         fx:controller="com.s1cket.labs.client.controller.MainController">
-   <tabs>
+<VBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.s1cket.labs.client.controller.MainController">
+   <fx:include source="MenuController.fxml"/>
+   <TabPane BorderPane.alignment="CENTER"
+            prefHeight="432.0"
+            prefWidth="601.0"
+            fx:id="tabPane">
       <Tab fx:id="tabAdd" text="+" onSelectionChanged="#onTabAdd"/>
-   </tabs>
-</TabPane>
+   </TabPane>
+</VBox>
+
