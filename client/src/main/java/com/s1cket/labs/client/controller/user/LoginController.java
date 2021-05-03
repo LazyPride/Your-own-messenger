@@ -1,9 +1,9 @@
 package com.s1cket.labs.client.controller.user;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Tab;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.TextField;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -15,9 +15,11 @@ import org.springframework.stereotype.Component;
 @FxmlView("LoginController.fxml")
 public class LoginController {
     @FXML
-    StackPane stackPane;
+    private TextField user;
+    @FXML
+    private TextField password;
 
-    private Tab parentTab;
+    private Tab tab;
     private final FxWeaver fxWeaver;
     private final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
@@ -35,12 +37,27 @@ public class LoginController {
     public void login() {
         logger.debug("login");
 
-        FxControllerAndView<ChatController, BorderPane> chatScreen =
+        /**
+         * TODO: Fetch login and password from fields.
+         * Call login from UserLoginService:
+         *   - if user exists locally then ask server to accept access.
+         */
+        String userText = user.getText();
+        String passwordText = password.getText();
+
+        logger.info("Logging in as " + userText + ":" + passwordText);
+
+        FxControllerAndView<ChatController, Node> chatScreen =
                 fxWeaver.load(ChatController.class);
-        this.parentTab.setContent(chatScreen.getView().get());
+        this.tab.setContent(chatScreen.getView().get());
     }
 
-    public void setParentTab(Tab tab) {
-        this.parentTab = tab;
+    public void setView(Node node) {
+        this.user = (TextField) node.lookup("#user");
+        this.password = (TextField) node.lookup("#password");
+    }
+
+    public void setTab(Tab tab) {
+        this.tab = tab;
     }
 }
