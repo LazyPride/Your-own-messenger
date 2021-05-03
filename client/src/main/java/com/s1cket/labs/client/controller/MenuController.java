@@ -54,12 +54,4 @@ public class MenuController {
     @FXML
     public void handleAddContactAction(ActionEvent event) {
     }
-
-    @FXML
-    public void handleCreateGroupAction(ActionEvent event) {
-    }
-
-    @FXML
-    public void handleJoinGroupAction(ActionEvent event) {
-    }
 }

@@ -16,7 +16,5 @@ public class EnvelopeDto {
 
     private LetterDto letter;
 
-    private ChatRoomDto chatRoom;
-
     private InterlocutorDto interlocutor;
 }

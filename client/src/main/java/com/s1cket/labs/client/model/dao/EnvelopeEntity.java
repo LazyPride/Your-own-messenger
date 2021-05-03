@@ -23,10 +23,6 @@ public class EnvelopeEntity {
     private LetterEntity letter;
 
     @ManyToOne
-    @JoinColumn(name="chat_room_id", nullable=false)
-    private ChatRoomEntity chatRoom;
-
-    @ManyToOne
     @JoinColumn(name="interlocutor_id", nullable=false)
     private InterlocutorEntity interlocutor;
 }

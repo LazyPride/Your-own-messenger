@@ -25,7 +25,4 @@ public class InterlocutorEntity {
 
     @OneToMany(mappedBy="interlocutor")
     private Set<EnvelopeEntity> envelopes;
-
-    @ManyToMany
-    private Set<ChatRoomEntity> rooms;
 }

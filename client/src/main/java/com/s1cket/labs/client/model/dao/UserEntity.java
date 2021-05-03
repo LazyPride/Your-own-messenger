@@ -27,8 +27,5 @@ public class UserEntity {
     private String address;
 
     @OneToMany(mappedBy="user")
-    private Set<ChatRoomEntity> rooms;
-
-    @OneToMany(mappedBy="user")
     private Set<InterlocutorEntity> interlocutors;
 }

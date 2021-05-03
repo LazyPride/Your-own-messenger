@@ -13,15 +13,8 @@
             <Menu text="Me">
                 <items>
                     <MenuItem text="Profile" disable="true" onAction="#handleProfileAction"/>
-                    <MenuItem text="Log out" disable="true" onAction="#handleLogOutAction"/>
-                </items>
-            </Menu>
-            <Menu text="Contacts">
-                <items>
                     <MenuItem text="Add contact" disable="true" onAction="#handleAddContactAction"/>
-                    <SeparatorMenuItem  />
-                    <MenuItem text="Create group" disable="true" onAction="#handleCreateGroupAction"/>
-                    <MenuItem text="Join group" disable="true" onAction="#handleJoinGroupAction"/>
+                    <MenuItem text="Log out" disable="true" onAction="#handleLogOutAction"/>
                 </items>
             </Menu>
             <Menu text="Help">

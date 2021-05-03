@@ -21,6 +21,4 @@ public class InterlocutorDto {
     private UserDto user;
 
     private Set<EnvelopeDto> envelopes;
-
-    private Set<ChatRoomDto> rooms;
 }

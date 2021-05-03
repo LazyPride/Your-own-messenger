@@ -23,7 +23,5 @@ public class UserDto implements Serializable {
 
     private String address;
 
-    private Set<ChatRoomDto> rooms;
-
     private Set<InterlocutorDto> interlocutors;
 }
