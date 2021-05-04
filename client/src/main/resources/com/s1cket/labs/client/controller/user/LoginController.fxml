@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<StackPane prefWidth="231.0"
-           xmlns:fx="http://javafx.com/fxml"
+<StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.s1cket.labs.client.controller.user.LoginController"
            fx:id="stackPane">
     <children>

@@ -1,6 +1,7 @@
 package com.s1cket.labs.client;
 
 import com.s1cket.labs.client.controller.MainController;
+import com.s1cket.labs.client.controller.user.LoginController;
 import com.s1cket.labs.client.events.StageReadyEvent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
