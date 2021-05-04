@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
+<?import javafx.scene.text.Text?>
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.s1cket.labs.client.controller.user.LoginController"
            fx:id="stackPane">
@@ -43,6 +44,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                 </GridPane>
+                <Text fx:id="notification"/>
             </children>
         </VBox>
     </children>

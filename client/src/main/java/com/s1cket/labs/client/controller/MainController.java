@@ -2,6 +2,7 @@ package com.s1cket.labs.client.controller;
 
 import com.s1cket.labs.client.controller.user.ChatController;
 import com.s1cket.labs.client.controller.user.LoginController;
+import com.s1cket.labs.client.model.dto.UserDto;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
@@ -43,7 +44,7 @@ public class MainController {
         parentNode.getChildren().add(loginCV.getView().get());
     }
 
-    public void loadChatScreen() {
+    public void loadChatScreen(UserDto userDto) {
         parentNode.getChildren().clear();
         parentNode.getChildren().add(chatCV.getView().get());
     }

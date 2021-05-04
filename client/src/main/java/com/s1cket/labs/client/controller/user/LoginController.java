@@ -1,10 +1,12 @@
 package com.s1cket.labs.client.controller.user;
 
 import com.s1cket.labs.client.controller.MainController;
+import com.s1cket.labs.client.model.dto.UserDto;
+import com.s1cket.labs.client.service.UserService;
+import com.s1cket.labs.client.service.exception.ServiceException;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.TextField;
-import net.rgielen.fxweaver.core.FxWeaver;
+import javafx.scene.text.Text;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,41 +17,38 @@ import org.springframework.stereotype.Component;
 @FxmlView("LoginController.fxml")
 public class LoginController {
     @FXML
+    private Text notification;
+    @FXML
     private TextField user;
     @FXML
     private TextField password;
 
     private MainController mainController;
 
-    private final FxWeaver fxWeaver;
+    private UserService userService;
+
     private final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
-    public LoginController(MainController mainController, FxWeaver fxWeaver) {
-        this.fxWeaver = fxWeaver;
+    public LoginController(MainController mainController, UserService userService) {
+        this.userService = userService;
         this.mainController = mainController;
-        logger.debug("Constructor");
-    }
-
-    @FXML
-    public void initialize() {
-        logger.debug("initialize");
     }
 
     @FXML
     public void login() {
-        logger.debug("login");
+        String userText = user.getText().strip();
+        String passwordText = password.getText().strip();
 
-        /**
-         * TODO: Fetch login and password from fields.
-         * Call login from UserLoginService:
-         *   - if user exists locally then ask server to accept access.
-         */
-        String userText = user.getText();
-        String passwordText = password.getText();
+        try {
+            UserDto userDto = userService.findByLogin(userText);
+            /* TODO: Server request */
+            logger.info("Logging in as " + userText);
+            mainController.loadChatScreen(userDto);
+        } catch (ServiceException e) {
+            logger.info(e.getMessage());
+            notification.setText(e.getMessage());
+        }
 
-        logger.info("Logging in as " + userText + ":" + passwordText);
-
-        mainController.loadChatScreen();
     }
 }
