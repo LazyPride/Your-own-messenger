@@ -1,15 +1,18 @@
 package com.s1cket.labs.client.model.dao;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name="user_entity")
 @Data
-public class UserEntity {
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,6 +29,8 @@ public class UserEntity {
 
     private String address;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<InterlocutorEntity> interlocutors;
 }

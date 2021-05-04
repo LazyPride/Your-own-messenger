@@ -1,8 +1,6 @@
 package com.s1cket.labs.client.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Set;
 
@@ -18,7 +16,10 @@ public class InterlocutorDto {
 
     private String publicKey;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private UserDto user;
 
+    @EqualsAndHashCode.Exclude
     private Set<EnvelopeDto> envelopes;
 }

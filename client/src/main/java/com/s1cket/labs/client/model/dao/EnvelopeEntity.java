@@ -2,6 +2,7 @@ package com.s1cket.labs.client.model.dao;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -17,12 +18,13 @@ public class EnvelopeEntity {
 
     private String addressTo;
 
-    @EqualsAndHashCode.Exclude
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "letter_id")
     private LetterEntity letter;
 
     @ManyToOne
     @JoinColumn(name="interlocutor_id", nullable=false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private InterlocutorEntity interlocutor;
 }

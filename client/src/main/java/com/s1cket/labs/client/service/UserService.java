@@ -2,6 +2,7 @@ package com.s1cket.labs.client.service;
 
 import com.s1cket.labs.client.model.dao.UserEntity;
 import com.s1cket.labs.client.model.dto.UserDto;
+import com.s1cket.labs.client.model.mapper.CycleAvoidingMappingContext;
 import com.s1cket.labs.client.model.mapper.UserMapper;
 import com.s1cket.labs.client.model.repository.UserRepository;
 import com.s1cket.labs.client.service.exception.ServiceException;
@@ -26,7 +27,6 @@ public class UserService {
         } catch (Exception ex) {
             throw new ServiceException("User " + login + " is not found.", ex);
         }
-
-        return userMapper.userEntityToDto(userEntity);
+        return userMapper.userEntityToDto(userEntity, new CycleAvoidingMappingContext());
     }
 }

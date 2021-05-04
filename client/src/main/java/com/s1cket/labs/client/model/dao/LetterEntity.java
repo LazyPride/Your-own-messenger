@@ -1,6 +1,8 @@
 package com.s1cket.labs.client.model.dao;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -20,5 +22,7 @@ public class LetterEntity {
     private String text;
 
     @OneToOne(mappedBy = "letter")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private EnvelopeEntity envelope;
 }

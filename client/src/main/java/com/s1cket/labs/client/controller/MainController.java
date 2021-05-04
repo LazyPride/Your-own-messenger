@@ -46,6 +46,7 @@ public class MainController {
 
     public void loadChatScreen(UserDto userDto) {
         parentNode.getChildren().clear();
+        chatCV.getController().load(userDto);
         parentNode.getChildren().add(chatCV.getView().get());
     }
 }

@@ -16,15 +16,15 @@
     <center>
         <VBox>
             <children>
-                <fx:include source="chat/HeaderController.fxml"/>
-                <fx:include source="chat/HistoryController.fxml"/>
-                <fx:include source="chat/SendController.fxml"/>
+                <fx:include fx:id="headerController" source="chat/HeaderController.fxml"/>
+                <fx:include fx:id="historyController" source="chat/HistoryController.fxml"/>
+                <fx:include fx:id="sendController" source="chat/SendController.fxml"/>
             </children>
         </VBox>
     </center>
     <right>
     </right>
     <left>
-        <fx:include source="menu/InterlocutorMenuController.fxml"/>
+        <fx:include fx:id="interlocutorMenuController" source="menu/InterlocutorMenuController.fxml"/>
     </left>
 </BorderPane>

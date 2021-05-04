@@ -1,8 +1,6 @@
 package com.s1cket.labs.client.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
@@ -16,5 +14,7 @@ public class EnvelopeDto {
 
     private LetterDto letter;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private InterlocutorDto interlocutor;
 }

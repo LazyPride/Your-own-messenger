@@ -1,8 +1,6 @@
 package com.s1cket.labs.client.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.OffsetDateTime;
 
@@ -16,5 +14,7 @@ public class LetterDto {
 
     private String text;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private EnvelopeDto envelope;
 }
