@@ -5,7 +5,6 @@ import com.s1cket.labs.client.controller.user.LoginController;
 import com.s1cket.labs.client.model.dto.UserDto;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;

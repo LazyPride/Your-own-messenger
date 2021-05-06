@@ -6,8 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:id="message"
+      fx:controller="com.s1cket.labs.client.controller.user.chat.MessageController"
+      prefWidth="100.0">
+    <Label fx:id="text" wrapText="true"/>
+    <Label fx:id="timestamp" alignment="BASELINE_RIGHT" textAlignment="RIGHT"/>
+</VBox>

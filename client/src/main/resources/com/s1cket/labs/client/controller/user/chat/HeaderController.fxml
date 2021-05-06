@@ -6,9 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox prefHeight="100.0" prefWidth="200.0">
-    <children>
-        <Label prefHeight="52.0" prefWidth="93.0" text="interlocutor" />
-        <Label prefHeight="49.0" prefWidth="66.0" text="is_online" />
-    </children>
+<HBox prefHeight="100.0"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.s1cket.labs.client.controller.user.chat.HeaderController">
+    <Label fx:id="nickname"/>
+    <Label fx:id="online"/>
+    <Hyperlink fx:id="profile"/>
 </HBox>
