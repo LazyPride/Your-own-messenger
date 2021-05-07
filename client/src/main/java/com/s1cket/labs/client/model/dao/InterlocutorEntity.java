@@ -3,9 +3,10 @@ package com.s1cket.labs.client.model.dao;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.annotations.SortNatural;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.SortedSet;
 
 @Entity
 @Table(name="interlocutor")
@@ -29,5 +30,6 @@ public class InterlocutorEntity {
 
     @OneToMany(mappedBy="interlocutor", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
-    private Set<EnvelopeEntity> envelopes;
+    @SortNatural
+    private SortedSet<EnvelopeEntity> envelopes;
 }

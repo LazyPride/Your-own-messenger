@@ -2,7 +2,7 @@ package com.s1cket.labs.client.model.dto;
 
 import lombok.*;
 
-import java.util.Set;
+import java.util.SortedSet;
 
 @Data
 @AllArgsConstructor
@@ -21,5 +21,5 @@ public class InterlocutorDto {
     private UserDto user;
 
     @EqualsAndHashCode.Exclude
-    private Set<EnvelopeDto> envelopes;
+    private SortedSet<EnvelopeDto> envelopes;
 }

@@ -11,7 +11,7 @@ import java.time.OffsetDateTime;
 @Entity
 @Table(name="letter")
 @Data
-public class LetterEntity {
+public class LetterEntity implements Comparable<LetterEntity> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,4 +25,9 @@ public class LetterEntity {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private EnvelopeEntity envelope;
+
+    @Override
+    public int compareTo(LetterEntity o) {
+        return this.createTime.compareTo(o.getCreateTime());
+    }
 }

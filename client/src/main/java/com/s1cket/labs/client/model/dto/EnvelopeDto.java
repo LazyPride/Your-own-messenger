@@ -5,7 +5,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EnvelopeDto {
+public class EnvelopeDto implements Comparable<EnvelopeDto> {
     private Long id;
 
     private String addressFrom;
@@ -17,4 +17,9 @@ public class EnvelopeDto {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private InterlocutorDto interlocutor;
+
+    @Override
+    public int compareTo(EnvelopeDto o) {
+        return this.letter.compareTo(o.getLetter());
+    }
 }

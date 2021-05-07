@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="envelope")
 @Data
-public class EnvelopeEntity {
+public class EnvelopeEntity implements Comparable<EnvelopeEntity> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,4 +27,9 @@ public class EnvelopeEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private InterlocutorEntity interlocutor;
+
+    @Override
+    public int compareTo(EnvelopeEntity o) {
+        return this.letter.compareTo(o.getLetter());
+    }
 }

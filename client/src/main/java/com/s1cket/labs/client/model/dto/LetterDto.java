@@ -7,7 +7,7 @@ import java.time.OffsetDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LetterDto {
+public class LetterDto implements Comparable<LetterDto> {
     private Long id;
 
     private OffsetDateTime createTime;
@@ -17,4 +17,9 @@ public class LetterDto {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private EnvelopeDto envelope;
+
+    @Override
+    public int compareTo(LetterDto o) {
+        return this.createTime.compareTo(o.getCreateTime());
+    }
 }
