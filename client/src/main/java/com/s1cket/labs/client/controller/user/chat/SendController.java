@@ -4,14 +4,16 @@ import com.s1cket.labs.client.model.dto.EnvelopeDto;
 import com.s1cket.labs.client.model.dto.InterlocutorDto;
 import com.s1cket.labs.client.model.dto.LetterDto;
 import com.s1cket.labs.client.model.dto.UserDto;
+import com.s1cket.labs.client.service.EnvelopeService;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.OffsetDateTime;
@@ -20,14 +22,27 @@ import java.time.OffsetDateTime;
 @FxmlView("SendController.fxml")
 public class SendController {
 
+    @FXML
+    private TextArea textArea;
+    @FXML
+    private Button sendButton;
+
     private final FxWeaver fxWeaver;
     private final Logger logger = LoggerFactory.getLogger(SendController.class);
-    public TextArea textArea;
+
     private InterlocutorDto interlocutorDto;
     private UserDto userDto;
 
-    public SendController(FxWeaver fxWeaver) {
+    private final EnvelopeService envelopeService;
+    private HistoryCotroller historyCotroller;
+
+    @Autowired
+    public SendController(FxWeaver fxWeaver,
+                          EnvelopeService envelopeService,
+                          HistoryCotroller historyCotroller) {
         this.fxWeaver = fxWeaver;
+        this.envelopeService = envelopeService;
+        this.historyCotroller = historyCotroller;
         logger.debug("Constructor");
     }
 
@@ -41,6 +56,8 @@ public class SendController {
     }
 
     public void setInterlocutor(InterlocutorDto interlocutorDto) {
+        textArea.setDisable(false);
+        sendButton.setDisable(false);
         this.interlocutorDto = interlocutorDto;
     }
 
@@ -52,6 +69,7 @@ public class SendController {
         EnvelopeDto envelopeDto = EnvelopeDto.builder()
                 .addressFrom(userDto.getAddress())
                 .addressTo(interlocutorDto.getAddress())
+                .interlocutor(interlocutorDto)
                 .build();
 
         LetterDto letterDto = LetterDto.builder()
@@ -61,5 +79,16 @@ public class SendController {
                 .build();
 
         envelopeDto.setLetter(letterDto);
+
+        var savedEnvelope = envelopeService.save(envelopeDto);
+        logger.info("" + savedEnvelope);
+
+        textArea.clear();
+        historyCotroller.addEnvelope(savedEnvelope);
+    }
+
+    public void disable() {
+        textArea.setDisable(true);
+        sendButton.setDisable(true);
     }
 }

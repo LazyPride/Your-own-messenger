@@ -11,5 +11,5 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.s1cket.labs.client.controller.user.chat.SendController">
     <TextArea fx:id="textArea" prefHeight="76.0" prefWidth="416.0"/>
-    <Button onMouseClicked="#handleSend" mnemonicParsing="false" prefHeight="76.0" prefWidth="84.0" text="Send"/>
+    <Button fx:id="sendButton" onMouseClicked="#handleSend" mnemonicParsing="false" prefHeight="76.0" prefWidth="84.0" text="Send"/>
 </HBox>

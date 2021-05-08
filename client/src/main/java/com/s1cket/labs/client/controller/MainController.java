@@ -2,6 +2,8 @@ package com.s1cket.labs.client.controller;
 
 import com.s1cket.labs.client.controller.user.ChatController;
 import com.s1cket.labs.client.controller.user.LoginController;
+import com.s1cket.labs.client.controller.user.chat.HistoryCotroller;
+import com.s1cket.labs.client.controller.user.chat.SendController;
 import com.s1cket.labs.client.model.dto.UserDto;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -24,11 +26,18 @@ public class MainController {
 
     private final FxWeaver fxWeaver;
     private MenuController menuController;
+    private HistoryCotroller historyCotroller;
+    private SendController sendController;
     private final Logger logger = LoggerFactory.getLogger(MainController.class);
 
-    public MainController(FxWeaver fxWeaver, MenuController menuController) {
+    public MainController(FxWeaver fxWeaver,
+                          MenuController menuController,
+                          HistoryCotroller historyCotroller,
+                          SendController sendController) {
         this.fxWeaver = fxWeaver;
         this.menuController = menuController;
+        this.historyCotroller = historyCotroller;
+        this.sendController = sendController;
         logger.debug("Constructor");
     }
 
@@ -44,6 +53,8 @@ public class MainController {
         parentNode.getChildren().clear();
         parentNode.getChildren().add(loginCV.getView().get());
         menuController.disable();
+        historyCotroller.disable();
+        sendController.disable();
     }
 
     public void loadChatScreen(UserDto userDto) {
@@ -51,5 +62,6 @@ public class MainController {
         chatCV.getController().load(userDto);
         parentNode.getChildren().add(chatCV.getView().get());
         menuController.enable(userDto);
+
     }
 }

@@ -28,6 +28,7 @@ public class HistoryCotroller {
 
     private final FxWeaver fxWeaver;
     private final Logger logger = LoggerFactory.getLogger(HistoryCotroller.class);
+    private InterlocutorDto interlocutorDto;
 
     public HistoryCotroller(FxWeaver fxWeaver) {
         this.fxWeaver = fxWeaver;
@@ -40,6 +41,8 @@ public class HistoryCotroller {
     }
 
     public void setHistory(InterlocutorDto interlocutorDto) {
+        this.interlocutorDto = interlocutorDto;
+
         history.getChildren().clear();
         var envelopes = interlocutorDto.getEnvelopes();
 
@@ -49,20 +52,29 @@ public class HistoryCotroller {
         // TODO: decrypt all. sort by time.
 
         for (var envelope : envelopes) {
-            FxControllerAndView<MessageController, Node> message =
-                    fxWeaver.load(MessageController.class);
-            var messageController = message.getController();
-            var messageView = message.getView().orElse(new Label("Error loading view!"));
-
-            var letter = envelope.getLetter();
-            // TODO: decryptLetter. (EncryptionService)
-            String text = letter.getText();
-            OffsetDateTime timestamp = letter.getCreateTime();
-            Pos alignment = getAlignment(envelope);
-
-            messageController.set(text, timestamp, alignment);
-            history.getChildren().add(messageView);
+            drawEnvelope(envelope);
         }
+    }
+
+    public void addEnvelope(EnvelopeDto envelope) {
+       interlocutorDto.getEnvelopes().add(envelope);
+       drawEnvelope(envelope);
+    }
+
+    private void drawEnvelope(EnvelopeDto envelope) {
+        FxControllerAndView<MessageController, Node> message =
+                fxWeaver.load(MessageController.class);
+        var messageController = message.getController();
+        var messageView = message.getView().orElse(new Label("Error loading view!"));
+
+        var letter = envelope.getLetter();
+        // TODO: decryptLetter. (EncryptionService)
+        String text = letter.getText();
+        OffsetDateTime timestamp = letter.getCreateTime();
+        Pos alignment = getAlignment(envelope);
+
+        messageController.set(text, timestamp, alignment);
+        history.getChildren().add(messageView);
     }
 
     private Pos getAlignment(EnvelopeDto envelope) {
@@ -73,5 +85,10 @@ public class HistoryCotroller {
         else {
             return Pos.BASELINE_RIGHT;
         }
+    }
+
+    public void disable() {
+        history.getChildren().clear();
+        history.getChildren().add(new Label("Select a chat to start messaging"));
     }
 }
