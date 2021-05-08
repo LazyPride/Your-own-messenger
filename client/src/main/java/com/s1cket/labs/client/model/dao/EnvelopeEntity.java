@@ -18,8 +18,10 @@ public class EnvelopeEntity implements Comparable<EnvelopeEntity> {
 
     private String addressTo;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "letter_id")
+    @OneToOne(fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            mappedBy = "envelope")
+    @PrimaryKeyJoinColumn
     private LetterEntity letter;
 
     @ManyToOne

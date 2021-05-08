@@ -13,7 +13,7 @@ import java.time.OffsetDateTime;
 @Data
 public class LetterEntity implements Comparable<LetterEntity> {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "envelope_id")
     private Long id;
 
     @CreationTimestamp
@@ -21,7 +21,9 @@ public class LetterEntity implements Comparable<LetterEntity> {
 
     private String text;
 
-    @OneToOne(mappedBy = "letter")
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "envelope_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private EnvelopeEntity envelope;
