@@ -3,6 +3,7 @@ package com.s1cket.labs.client.model.dto;
 import lombok.*;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class EnvelopeDto implements Comparable<EnvelopeDto> {

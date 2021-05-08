@@ -6,9 +6,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox prefHeight="100.0" prefWidth="200.0">
-    <children>
-        <TextArea prefHeight="76.0" prefWidth="416.0" />
-        <Button mnemonicParsing="false" prefHeight="76.0" prefWidth="84.0" text="Send" />
-    </children>
+<HBox prefHeight="100.0" prefWidth="200.0"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.s1cket.labs.client.controller.user.chat.SendController">
+    <TextArea fx:id="textArea" prefHeight="76.0" prefWidth="416.0"/>
+    <Button onMouseClicked="#handleSend" mnemonicParsing="false" prefHeight="76.0" prefWidth="84.0" text="Send"/>
 </HBox>

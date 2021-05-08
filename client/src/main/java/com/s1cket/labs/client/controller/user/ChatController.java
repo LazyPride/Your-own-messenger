@@ -34,5 +34,6 @@ public class ChatController {
 
     public void load(UserDto userDto) {
         interlocutorMenuController.load(userDto);
+        sendController.load(userDto);
     }
 }

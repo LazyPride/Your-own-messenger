@@ -12,5 +12,5 @@
       fx:controller="com.s1cket.labs.client.controller.user.chat.HeaderController">
     <Label fx:id="nickname"/>
     <Label fx:id="online"/>
-    <Hyperlink fx:id="profile"/>
+    <Hyperlink fx:id="profile" onMouseClicked="#handleProfileClick"/>
 </HBox>

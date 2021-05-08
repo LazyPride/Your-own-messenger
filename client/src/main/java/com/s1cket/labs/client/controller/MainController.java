@@ -23,10 +23,12 @@ public class MainController {
     private FxControllerAndView<ChatController, Node> chatCV;
 
     private final FxWeaver fxWeaver;
+    private MenuController menuController;
     private final Logger logger = LoggerFactory.getLogger(MainController.class);
 
-    public MainController(FxWeaver fxWeaver) {
+    public MainController(FxWeaver fxWeaver, MenuController menuController) {
         this.fxWeaver = fxWeaver;
+        this.menuController = menuController;
         logger.debug("Constructor");
     }
 
@@ -41,11 +43,13 @@ public class MainController {
     public void loadLoginScreen() {
         parentNode.getChildren().clear();
         parentNode.getChildren().add(loginCV.getView().get());
+        menuController.disable();
     }
 
     public void loadChatScreen(UserDto userDto) {
         parentNode.getChildren().clear();
         chatCV.getController().load(userDto);
         parentNode.getChildren().add(chatCV.getView().get());
+        menuController.enable(userDto);
     }
 }

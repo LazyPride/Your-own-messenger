@@ -5,6 +5,7 @@ import lombok.*;
 import java.time.OffsetDateTime;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class LetterDto implements Comparable<LetterDto> {

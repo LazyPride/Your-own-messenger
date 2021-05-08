@@ -5,6 +5,7 @@ import lombok.*;
 import java.util.SortedSet;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class InterlocutorDto {

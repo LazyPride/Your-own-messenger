@@ -43,6 +43,9 @@ public class HistoryCotroller {
         history.getChildren().clear();
         var envelopes = interlocutorDto.getEnvelopes();
 
+        if (envelopes == null) {
+            return;
+        }
         // TODO: decrypt all. sort by time.
 
         for (var envelope : envelopes) {

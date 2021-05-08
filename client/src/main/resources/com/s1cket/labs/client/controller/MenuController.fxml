@@ -12,14 +12,14 @@
         <menus>
             <Menu text="Me">
                 <items>
-                    <MenuItem text="Profile" disable="true" onAction="#handleProfileAction"/>
-                    <MenuItem text="Add contact" disable="true" onAction="#handleAddContactAction"/>
-                    <MenuItem text="Log out" disable="true" onAction="#handleLogOutAction"/>
+                    <MenuItem text="Profile" fx:id="profile" onAction="#handleProfileAction"/>
+                    <MenuItem text="Add contact" fx:id="addContact" onAction="#handleAddContactAction"/>
+                    <MenuItem text="Log out" fx:id="logOut" onAction="#handleLogOutAction"/>
                 </items>
             </Menu>
             <Menu text="Help">
                 <items>
-                    <MenuItem text="About" onAction="#handleAboutAction"/>
+                    <MenuItem text="About" fx:id="help" onAction="#handleAboutAction"/>
                 </items>
             </Menu>
         </menus>

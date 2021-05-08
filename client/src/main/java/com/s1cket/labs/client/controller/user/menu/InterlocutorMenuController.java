@@ -2,6 +2,7 @@ package com.s1cket.labs.client.controller.user.menu;
 
 import com.s1cket.labs.client.controller.user.chat.HeaderController;
 import com.s1cket.labs.client.controller.user.chat.HistoryCotroller;
+import com.s1cket.labs.client.controller.user.chat.SendController;
 import com.s1cket.labs.client.model.dto.InterlocutorDto;
 import com.s1cket.labs.client.model.dto.UserDto;
 import javafx.collections.FXCollections;
@@ -27,6 +28,7 @@ public class InterlocutorMenuController {
 
     private final HeaderController headerController;
     private final HistoryCotroller historyCotroller;
+    private SendController sendController;
 
     private UserDto userDto;
 
@@ -36,9 +38,11 @@ public class InterlocutorMenuController {
 
     @Autowired
     public InterlocutorMenuController(HeaderController headerController,
-                                      HistoryCotroller historyCotroller) {
+                                      HistoryCotroller historyCotroller,
+                                      SendController sendController) {
         this.headerController = headerController;
         this.historyCotroller = historyCotroller;
+        this.sendController = sendController;
     }
 
     @FXML
@@ -71,6 +75,7 @@ public class InterlocutorMenuController {
                 logger.info("Loading for " + interlocutorDto);
                 headerController.setHeader(interlocutorDto);
                 historyCotroller.setHistory(interlocutorDto);
+                sendController.setInterlocutor(interlocutorDto);
             }
         }
     }

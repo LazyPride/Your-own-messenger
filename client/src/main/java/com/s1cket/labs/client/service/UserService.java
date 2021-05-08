@@ -1,6 +1,7 @@
 package com.s1cket.labs.client.service;
 
 import com.s1cket.labs.client.model.dao.UserEntity;
+import com.s1cket.labs.client.model.dto.InterlocutorDto;
 import com.s1cket.labs.client.model.dto.UserDto;
 import com.s1cket.labs.client.model.mapper.CycleAvoidingMappingContext;
 import com.s1cket.labs.client.model.mapper.UserMapper;
@@ -29,4 +30,6 @@ public class UserService {
         }
         return userMapper.userEntityToDto(userEntity, new CycleAvoidingMappingContext());
     }
+
+
 }
