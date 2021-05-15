@@ -16,6 +16,8 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.TreeSet;
+
 @Component
 @FxmlView("ContactManagerController.fxml")
 public class ContactManagerController {
@@ -65,6 +67,7 @@ public class ContactManagerController {
                 .address(address)
                 .publicKey(publicKey)
                 .user(userDto)
+                .envelopes(new TreeSet<>())
                 .build();
 
         InterlocutorDto savedDto;
