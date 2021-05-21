@@ -2,6 +2,7 @@ package com.s1cket.labs.client.controller.user;
 
 import com.s1cket.labs.client.controller.MainController;
 import com.s1cket.labs.client.model.dto.UserDto;
+import com.s1cket.labs.client.model.dto.UserLoginDto;
 import com.s1cket.labs.client.model.dto.UserRegistrationDto;
 import com.s1cket.labs.client.service.KeyService;
 import com.s1cket.labs.client.service.UserService;
@@ -54,21 +55,44 @@ public class LoginController {
         String userText = user.getText().strip();
         String passwordText = password.getText().strip();
 
+        UserDto userDto;
         try {
-            UserDto userDto = userService.findByLogin(userText);
-            /* TODO: Server request */
-            logger.info("Logging in as " + userText);
-            mainController.loadChatScreen(userDto);
+            userDto = userService.findByLogin(userText);
         } catch (ServiceException e) {
-            logger.info(e.getMessage());
-            notification.setText(e.getMessage());
+            logger.info(e.getMessage() + "Please register first. (Sync feature is not there yet)");
+            notification.setText(e.getMessage() + "Please register first. (Sync feature is not there yet)");
+            return;
         }
+
+        UserLoginDto uld = new UserLoginDto(userText, passwordText);
+
+        try {
+            registrationService.loginUser(uld).block();
+        }
+        catch (Exception e) {
+            logger.info("Invalid credentials!");
+            notification.setText("Invalid credentials!");
+            return;
+        }
+
+        logger.info("Logging in as " + userText);
+        mainController.loadChatScreen(userDto);
     }
 
     @FXML
     public void register(MouseEvent mouseEvent) {
         String login = user.getText().strip();
         String passwordText = password.getText().strip();
+
+        try {
+            userService.findByLogin(login);
+            logger.info("User " + login + " is already exist locally! You can login.");
+            notification.setText("User " + login + " is already exist locally! You can login.");
+            return;
+        } catch (ServiceException ignored) {
+
+        }
+
 
         KeyPair keyPair = keyService.generateKeyPair();
         String address = KeyService.bytesToHex(keyService.getAddress(keyPair.getPublic()));
@@ -100,7 +124,7 @@ public class LoginController {
         }
 
         userService.save(user);
-        logger.info("Register user: " + userRegistration);
         logger.info("Created user: " + user);
+        notification.setText("Successfully registered!");
     }
 }

@@ -26,7 +26,7 @@ public class UserService {
         try {
             userEntity = userRepository.findByLogin(login).orElseThrow(EntityNotFoundException::new);
         } catch (Exception ex) {
-            throw new ServiceException("User " + login + " is not found.", ex);
+            throw new ServiceException("User " + login + " is not found locally.", ex);
         }
         return userMapper.userEntityToDto(userEntity, new CycleAvoidingMappingContext());
     }

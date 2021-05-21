@@ -1,5 +1,6 @@
 package com.s1cket.labs.client.service;
 
+import com.s1cket.labs.client.model.dto.UserLoginDto;
 import com.s1cket.labs.client.model.dto.UserRegistrationDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -23,4 +24,14 @@ public class RegistrationService {
                 .retrieve()
                 .bodyToMono(UserRegistrationDto.class);
     }
+
+    public Mono<UserRegistrationDto> loginUser(UserLoginDto userLoginDto) {
+        return this.webClient.post()
+                .uri("/user/login")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(Mono.just(userLoginDto), UserLoginDto.class)
+                .retrieve()
+                .bodyToMono(UserRegistrationDto.class);
+    }
+
 }
