@@ -15,13 +15,12 @@ public class RegistrationService {
         this.webClient = webClientBuilder.baseUrl("http://localhost:8080").build();
     }
 
-    public UserRegistrationDto registerUser(UserRegistrationDto userRegistrationDto) {
+    public Mono<UserRegistrationDto> registerUser(UserRegistrationDto userRegistrationDto) {
         return this.webClient.post()
                 .uri("/user/register")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .body(Mono.just(userRegistrationDto), UserRegistrationDto.class)
                 .retrieve()
-                .bodyToMono(UserRegistrationDto.class)
-                .block();
+                .bodyToMono(UserRegistrationDto.class);
     }
 }

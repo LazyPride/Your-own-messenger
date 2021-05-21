@@ -25,6 +25,7 @@ public class RegistrationController {
 
         try {
             UserDto userResponse = userService.registerUser(userDto);
+            log.info("User has been registered:  " + userDto);
             return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
         } catch (ValidationException e) {
             log.info("Can't register user. " + e.getMessage());

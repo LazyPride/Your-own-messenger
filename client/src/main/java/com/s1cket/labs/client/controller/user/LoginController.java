@@ -2,16 +2,23 @@ package com.s1cket.labs.client.controller.user;
 
 import com.s1cket.labs.client.controller.MainController;
 import com.s1cket.labs.client.model.dto.UserDto;
+import com.s1cket.labs.client.model.dto.UserRegistrationDto;
+import com.s1cket.labs.client.service.KeyService;
 import com.s1cket.labs.client.service.UserService;
+import com.s1cket.labs.client.service.RegistrationService;
 import com.s1cket.labs.client.service.exception.ServiceException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.security.KeyPair;
+import java.util.HashSet;
 
 @Component
 @FxmlView("LoginController.fxml")
@@ -26,13 +33,20 @@ public class LoginController {
     private MainController mainController;
 
     private UserService userService;
+    private RegistrationService registrationService;
+    private KeyService keyService;
 
     private final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
-    public LoginController(MainController mainController, UserService userService) {
+    public LoginController(MainController mainController,
+                           UserService userService,
+                           RegistrationService registrationService,
+                           KeyService keyService) {
         this.userService = userService;
         this.mainController = mainController;
+        this.registrationService = registrationService;
+        this.keyService = keyService;
     }
 
     @FXML
@@ -49,6 +63,44 @@ public class LoginController {
             logger.info(e.getMessage());
             notification.setText(e.getMessage());
         }
+    }
 
+    @FXML
+    public void register(MouseEvent mouseEvent) {
+        String login = user.getText().strip();
+        String passwordText = password.getText().strip();
+
+        KeyPair keyPair = keyService.generateKeyPair();
+        String address = KeyService.bytesToHex(keyService.getAddress(keyPair.getPublic()));
+        String privateKeyHex = KeyService.bytesToHex(keyPair.getPrivate().getEncoded());
+        String publicKeyHex = KeyService.bytesToHex(keyPair.getPublic().getEncoded());
+
+        UserDto user = UserDto.builder()
+                .login(login)
+                .password(passwordText)
+                .address(address)
+                .privateKey(privateKeyHex)
+                .publicKey(publicKeyHex)
+                .interlocutors(new HashSet<>())
+                .build();
+
+        UserRegistrationDto userRegistration = UserRegistrationDto.builder()
+                .login(login)
+                .password(passwordText)
+                .address(address)
+                .build();
+
+        try {
+            registrationService.registerUser(userRegistration).block();
+        }
+        catch (Exception e) {
+            logger.info("Login is occupied!");
+            notification.setText("Login is occupied!");
+            return;
+        }
+
+        userService.save(user);
+        logger.info("Register user: " + userRegistration);
+        logger.info("Created user: " + user);
     }
 }

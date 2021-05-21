@@ -34,6 +34,12 @@
                                 text="Login"
                                 GridPane.valignment="CENTER"
                                 onMouseClicked="#login"/>
+                        <Button fx:id="registerButton"
+                                GridPane.columnIndex="2"
+                                GridPane.rowIndex="2"
+                                text="Register"
+                                GridPane.valignment="CENTER"
+                                onMouseClicked="#register"/>
                     </children>
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="109.0" />
