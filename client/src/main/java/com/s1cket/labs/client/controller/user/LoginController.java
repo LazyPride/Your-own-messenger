@@ -37,7 +37,6 @@ public class LoginController {
     private UserService userService;
     private RegistrationService registrationService;
     private KeyService keyService;
-    private WebSocketService webSocketService;
 
     private final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
@@ -45,13 +44,11 @@ public class LoginController {
     public LoginController(MainController mainController,
                            UserService userService,
                            RegistrationService registrationService,
-                           KeyService keyService,
-                           WebSocketService webSocketService) {
+                           KeyService keyService) {
         this.userService = userService;
         this.mainController = mainController;
         this.registrationService = registrationService;
         this.keyService = keyService;
-        this.webSocketService = webSocketService;
     }
 
     @FXML
@@ -79,7 +76,6 @@ public class LoginController {
             return;
         }
 
-        webSocketService.connect(userDto.getAddress());
         logger.info("Logging in as " + userText);
         mainController.loadChatScreen(userDto);
     }

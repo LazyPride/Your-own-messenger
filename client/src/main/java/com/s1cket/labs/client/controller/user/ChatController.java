@@ -5,6 +5,7 @@ import com.s1cket.labs.client.controller.user.chat.HistoryCotroller;
 import com.s1cket.labs.client.controller.user.chat.SendController;
 import com.s1cket.labs.client.controller.user.menu.InterlocutorMenuController;
 import com.s1cket.labs.client.model.dto.UserDto;
+import com.s1cket.labs.client.service.WebSocketService;
 import javafx.fxml.FXML;
 import lombok.AllArgsConstructor;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -26,6 +27,7 @@ public class ChatController {
     private final InterlocutorMenuController interlocutorMenuController;
 
     private final Logger logger = LoggerFactory.getLogger(ChatController.class);
+    private WebSocketService webSocketService;
 
     @FXML
     public void initialize() {
@@ -33,6 +35,8 @@ public class ChatController {
     }
 
     public void load(UserDto userDto) {
+        webSocketService.connect(userDto);
+
         interlocutorMenuController.load(userDto);
         sendController.load(userDto);
     }

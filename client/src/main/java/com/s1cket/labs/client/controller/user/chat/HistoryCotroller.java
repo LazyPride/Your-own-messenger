@@ -1,20 +1,21 @@
 package com.s1cket.labs.client.controller.user.chat;
 
-import com.s1cket.labs.client.controller.user.ChatController;
+import com.s1cket.labs.client.events.IFrameListener;
 import com.s1cket.labs.client.model.dto.EnvelopeDto;
 import com.s1cket.labs.client.model.dto.InterlocutorDto;
-import com.s1cket.labs.client.model.dto.UserDto;
+import com.s1cket.labs.client.service.WebSocketService;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.OffsetDateTime;
@@ -29,9 +30,13 @@ public class HistoryCotroller {
     private final FxWeaver fxWeaver;
     private final Logger logger = LoggerFactory.getLogger(HistoryCotroller.class);
     private InterlocutorDto interlocutorDto;
+    private WebSocketService webSocketService;
 
-    public HistoryCotroller(FxWeaver fxWeaver) {
+    @Autowired
+    public HistoryCotroller(FxWeaver fxWeaver, WebSocketService webSocketService) {
         this.fxWeaver = fxWeaver;
+        this.webSocketService = webSocketService;
+        this.webSocketService.registerListener(new EnvelopeListener());
         logger.debug("Constructor");
     }
 
@@ -90,5 +95,13 @@ public class HistoryCotroller {
     public void disable() {
         history.getChildren().clear();
         history.getChildren().add(new Label("Select a chat to start messaging"));
+    }
+
+    private class EnvelopeListener implements IFrameListener {
+
+        @Override
+        public void onFrameReceive(Object payload) {
+            Platform.runLater(() -> addEnvelope((EnvelopeDto) payload));
+        }
     }
 }
