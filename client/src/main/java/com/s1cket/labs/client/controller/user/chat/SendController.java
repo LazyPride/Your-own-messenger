@@ -1,10 +1,8 @@
 package com.s1cket.labs.client.controller.user.chat;
 
-import com.s1cket.labs.client.model.dto.EnvelopeDto;
-import com.s1cket.labs.client.model.dto.InterlocutorDto;
-import com.s1cket.labs.client.model.dto.LetterDto;
-import com.s1cket.labs.client.model.dto.UserDto;
+import com.s1cket.labs.client.model.dto.*;
 import com.s1cket.labs.client.service.EnvelopeService;
+import com.s1cket.labs.client.service.WebSocketService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -35,14 +33,17 @@ public class SendController {
 
     private final EnvelopeService envelopeService;
     private HistoryCotroller historyCotroller;
+    private WebSocketService webSocketService;
 
     @Autowired
     public SendController(FxWeaver fxWeaver,
                           EnvelopeService envelopeService,
-                          HistoryCotroller historyCotroller) {
+                          HistoryCotroller historyCotroller,
+                          WebSocketService webSocketService) {
         this.fxWeaver = fxWeaver;
         this.envelopeService = envelopeService;
         this.historyCotroller = historyCotroller;
+        this.webSocketService = webSocketService;
         logger.debug("Constructor");
     }
 
@@ -82,6 +83,16 @@ public class SendController {
 
         var savedEnvelope = envelopeService.save(envelopeDto);
         logger.info("" + savedEnvelope);
+
+        var letter = new LetterWebDto(envelopeDto.getLetter().getText());
+
+        var envelope = EnvelopeWebDto.builder()
+                .addressFrom(envelopeDto.getAddressFrom())
+                .addressTo(envelopeDto.getAddressTo())
+                .letter(letter)
+                .build();
+
+        webSocketService.send(envelope);
 
         textArea.clear();
         historyCotroller.addEnvelope(savedEnvelope);
