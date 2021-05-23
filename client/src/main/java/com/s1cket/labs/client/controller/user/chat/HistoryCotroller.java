@@ -62,8 +62,10 @@ public class HistoryCotroller {
     }
 
     public void addEnvelope(EnvelopeDto envelope) {
-       interlocutorDto.getEnvelopes().add(envelope);
-       drawEnvelope(envelope);
+        if (envelope.getInterlocutor().getAddress().equals(interlocutorDto.getAddress())) {
+            interlocutorDto.getEnvelopes().add(envelope);
+            drawEnvelope(envelope);
+        }
     }
 
     private void drawEnvelope(EnvelopeDto envelope) {
