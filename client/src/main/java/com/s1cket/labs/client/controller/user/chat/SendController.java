@@ -92,7 +92,9 @@ public class SendController {
                 .letter(letter)
                 .build();
 
-        webSocketService.send(envelope);
+        if (!envelope.getAddressTo().equals(userDto.getAddress())) {
+            webSocketService.send(envelope);
+        }
 
         textArea.clear();
         historyCotroller.addEnvelope(savedEnvelope);
