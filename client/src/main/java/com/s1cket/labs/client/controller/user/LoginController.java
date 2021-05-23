@@ -1,14 +1,13 @@
 package com.s1cket.labs.client.controller.user;
 
 import com.s1cket.labs.client.controller.MainController;
+import com.s1cket.labs.client.model.dto.InterlocutorDto;
 import com.s1cket.labs.client.model.dto.UserDto;
 import com.s1cket.labs.client.model.dto.UserLoginDto;
 import com.s1cket.labs.client.model.dto.UserRegistrationDto;
-import com.s1cket.labs.client.service.KeyService;
-import com.s1cket.labs.client.service.UserService;
-import com.s1cket.labs.client.service.RegistrationService;
-import com.s1cket.labs.client.service.WebSocketService;
+import com.s1cket.labs.client.service.*;
 import com.s1cket.labs.client.service.exception.ServiceException;
+import com.s1cket.labs.client.service.exception.ValidationException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -21,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import java.security.KeyPair;
 import java.util.HashSet;
+import java.util.TreeSet;
 
 @Component
 @FxmlView("LoginController.fxml")
@@ -35,6 +35,7 @@ public class LoginController {
     private MainController mainController;
 
     private UserService userService;
+    private InterlocutorService interlocutorService;
     private RegistrationService registrationService;
     private KeyService keyService;
 
@@ -43,10 +44,12 @@ public class LoginController {
     @Autowired
     public LoginController(MainController mainController,
                            UserService userService,
+                           InterlocutorService interlocutorService,
                            RegistrationService registrationService,
                            KeyService keyService) {
         this.userService = userService;
         this.mainController = mainController;
+        this.interlocutorService = interlocutorService;
         this.registrationService = registrationService;
         this.keyService = keyService;
     }
@@ -94,7 +97,6 @@ public class LoginController {
 
         }
 
-
         KeyPair keyPair = keyService.generateKeyPair();
         String address = KeyService.bytesToHex(keyService.getAddress(keyPair.getPublic()));
         String privateKeyHex = KeyService.bytesToHex(keyPair.getPrivate().getEncoded());
@@ -124,8 +126,24 @@ public class LoginController {
             return;
         }
 
-        userService.save(user);
-        logger.info("Created user: " + user);
+        UserDto savedUser = userService.save(user);
+        logger.info("Created user: " + savedUser);
+
+        InterlocutorDto interlocutorDto = InterlocutorDto.builder()
+                .publicKey(savedUser.getPublicKey())
+                .address(savedUser.getAddress())
+                .user(savedUser)
+                .envelopes(new TreeSet<>())
+                .nickname(savedUser.getLogin())
+                .build();
+        InterlocutorDto saved = null;
+        try {
+            saved = interlocutorService.save(interlocutorDto);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+        }
+        logger.info("Created self-interlocutor: " + saved);
+
         notification.setText("Successfully registered!");
     }
 }

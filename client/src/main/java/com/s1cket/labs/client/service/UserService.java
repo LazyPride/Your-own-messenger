@@ -31,10 +31,10 @@ public class UserService {
         return userMapper.userEntityToDto(userEntity, new CycleAvoidingMappingContext());
     }
 
-    public void save(UserDto userDto) {
+    public UserDto save(UserDto userDto) {
         UserEntity userEntity = userMapper.userDtoToEntity(userDto, new CycleAvoidingMappingContext());
 
-        userRepository.save(userEntity);
+        return userMapper.userEntityToDto(userRepository.save(userEntity), new CycleAvoidingMappingContext());
     }
 
 
