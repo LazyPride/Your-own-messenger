@@ -8,6 +8,7 @@ import com.s1cket.labs.client.model.dto.UserDto;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Component;
 @FxmlView("MainController.fxml")
 public class MainController {
     @FXML
-    private StackPane parentNode;
+    private VBox parentNode;
 
     private FxControllerAndView<LoginController, Node> loginCV;
     private FxControllerAndView<ChatController, Node> chatCV;

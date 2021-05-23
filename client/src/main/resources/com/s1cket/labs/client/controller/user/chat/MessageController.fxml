@@ -10,7 +10,8 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:id="message"
       fx:controller="com.s1cket.labs.client.controller.user.chat.MessageController"
-      prefWidth="100.0">
-    <Label fx:id="text" wrapText="true"/>
+      style="-fx-padding:6px;"
+      prefWidth="200">
+    <Label fx:id="text"/>
     <Label fx:id="timestamp" alignment="BASELINE_RIGHT" textAlignment="RIGHT"/>
 </VBox>

@@ -1,0 +1,14 @@
+#vbox {
+    -fx-padding: 24px 24px 24px 150px;
+    -fx-pref-height: 600;
+    -fx-spacing: 12px;
+    -fx-alignment: center;
+}
+
+.hbox {
+    -fx-spacing: 12px;
+}
+
+.button {
+    -fx-background-color: azure;
+}

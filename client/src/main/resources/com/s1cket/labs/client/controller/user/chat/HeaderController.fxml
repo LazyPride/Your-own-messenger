@@ -9,8 +9,8 @@
 <HBox prefHeight="100.0"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.s1cket.labs.client.controller.user.chat.HeaderController">
+      fx:controller="com.s1cket.labs.client.controller.user.chat.HeaderController"
+      style="-fx-spacing:12px;-fx-alignment:center-right;">
     <Label fx:id="nickname"/>
-    <Label fx:id="online"/>
     <Hyperlink fx:id="profile" onMouseClicked="#handleProfileClick"/>
 </HBox>

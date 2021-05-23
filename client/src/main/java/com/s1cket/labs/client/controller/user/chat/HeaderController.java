@@ -18,8 +18,6 @@ public class HeaderController {
     @FXML
     private Label nickname;
     @FXML
-    private Label online;
-    @FXML
     private Hyperlink profile;
 
     private InterlocutorDto interlocutorDto;
@@ -40,7 +38,6 @@ public class HeaderController {
         this.interlocutorDto = interlocutorDto;
         nickname.setText(interlocutorDto.getNickname());
         // TODO: onlineService.isUserOnline(nickname);
-        online.setText("to be done");
         profile.setText("Profile");
     }
 

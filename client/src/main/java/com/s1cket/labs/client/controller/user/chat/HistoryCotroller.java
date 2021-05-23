@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
@@ -26,6 +27,8 @@ import java.time.OffsetDateTime;
 @FxmlView("HistoryController.fxml")
 public class HistoryCotroller {
 
+    @FXML
+    private ScrollPane scrollPane;
     @FXML
     private VBox history;
 
@@ -44,6 +47,7 @@ public class HistoryCotroller {
         this.webSocketService = webSocketService;
         this.encryptionService = encryptionService;
         this.webSocketService.registerListener(new EnvelopeListener());
+        this.webSocketService.registerListener(new ScrollListener());
         logger.debug("Constructor");
     }
 
@@ -110,6 +114,14 @@ public class HistoryCotroller {
         @Override
         public void onFrameReceive(Object payload) {
             Platform.runLater(() -> addEnvelope((EnvelopeDto) payload));
+        }
+    }
+
+    private class ScrollListener implements IFrameListener {
+
+        @Override
+        public void onFrameReceive(Object payload) {
+            Platform.runLater(() -> scrollPane.setVvalue(1.0));
         }
     }
 }

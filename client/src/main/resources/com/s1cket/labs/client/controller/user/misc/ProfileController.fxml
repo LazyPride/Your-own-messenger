@@ -6,14 +6,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.s1cket.labs.client.controller.user.misc.ProfileController"
-            prefHeight="400.0" prefWidth="200.0"
-            fx:id="root">
-    <VBox>
+<VBox xmlns:fx="http://javafx.com/fxml"
+      xmlns="http://javafx.com/javafx"
+      fx:controller="com.s1cket.labs.client.controller.user.misc.ProfileController"
+      prefHeight="200.0" prefWidth="600.0"
+      fx:id="root"
+      style="-fx-padding:24px;">
+    <VBox style="-fx-padding:12px; -fx-spacing:12px;">
         <Label fx:id="nickname"/>
         <Label fx:id="address"/>
         <Label fx:id="publicKey"/>
+        <HBox style="-fx-spacing:12px;">
+            <Button text="Copy Nickname" onMouseClicked="#copyNickname"/>
+            <Button text="Copy address" onMouseClicked="#copyAddress"/>
+            <Button text="Copy publicKey" onMouseClicked="#copyPublicKey"/>
+        </HBox>
     </VBox>
-</AnchorPane>
+</VBox>

@@ -3,12 +3,16 @@ package com.s1cket.labs.client.controller.user.menu;
 import com.s1cket.labs.client.controller.user.chat.HeaderController;
 import com.s1cket.labs.client.controller.user.chat.HistoryCotroller;
 import com.s1cket.labs.client.controller.user.chat.SendController;
+import com.s1cket.labs.client.events.IFrameListener;
 import com.s1cket.labs.client.model.dto.InterlocutorDto;
 import com.s1cket.labs.client.model.dto.UserDto;
+import com.s1cket.labs.client.service.WebSocketService;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.slf4j.Logger;
@@ -23,6 +27,8 @@ import java.util.stream.Collectors;
 @Component
 @FxmlView("InterlocutorMenuController.fxml")
 public class InterlocutorMenuController {
+    @FXML
+    private ScrollPane scrollPane;
     @FXML
     private ListView interlocutorsListView;
 
@@ -79,4 +85,6 @@ public class InterlocutorMenuController {
             }
         }
     }
+
+
 }

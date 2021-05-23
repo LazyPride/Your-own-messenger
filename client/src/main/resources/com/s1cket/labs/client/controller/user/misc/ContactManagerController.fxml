@@ -10,22 +10,22 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.s1cket.labs.client.controller.user.misc.ContactManagerController"
             prefHeight="400.0" prefWidth="600.0"
-            fx:id="root">
-    <VBox>
-        <HBox>
+            fx:id="root" style="-fx-padding:24px;">
+    <VBox style="-fx-padding:12px; -fx-spacing:12px;">
+        <HBox style="-fx-spacing:12px;">
             <Label text="Nickname: "/>
             <TextField fx:id="nicknameTextField"/>
         </HBox>
-        <HBox>
+        <HBox style="-fx-spacing:12px;">
             <Label text="Address: "/>
             <TextField fx:id="addressTextField"/>
         </HBox>
-        <HBox>
+        <HBox style="-fx-spacing:12px;">
             <Label text="PublicKey: "/>
             <TextField fx:id="publicKeyTextField"/>
         </HBox>
         <Label fx:id="notificationLabel"/>
-        <HBox>
+        <HBox style="-fx-spacing:12px;">
             <Button text="Add" onMouseClicked="#handleSave"/>
             <Button text="Close" onMouseClicked="#handleClose"/>
         </HBox>

@@ -12,6 +12,8 @@
         xmlns="http://javafx.com/javafx/8"
         xmlns:fx="http://javafx.com/fxml/1"
         prefHeight="400.0"
-        prefWidth="127.0">
+        prefWidth="127.0"
+        fx:id="scrollPane"
+        style="-fx-hbar-policy:never;">
     <ListView fx:id="interlocutorsListView" onMouseClicked="#onInterlocutorSelected"/>
 </ScrollPane>
