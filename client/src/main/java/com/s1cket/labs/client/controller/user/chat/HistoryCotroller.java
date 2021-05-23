@@ -3,6 +3,8 @@ package com.s1cket.labs.client.controller.user.chat;
 import com.s1cket.labs.client.events.IFrameListener;
 import com.s1cket.labs.client.model.dto.EnvelopeDto;
 import com.s1cket.labs.client.model.dto.InterlocutorDto;
+import com.s1cket.labs.client.model.dto.UserDto;
+import com.s1cket.labs.client.service.EncryptionService;
 import com.s1cket.labs.client.service.WebSocketService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -29,13 +31,18 @@ public class HistoryCotroller {
 
     private final FxWeaver fxWeaver;
     private final Logger logger = LoggerFactory.getLogger(HistoryCotroller.class);
+    private UserDto userDto;
     private InterlocutorDto interlocutorDto;
     private WebSocketService webSocketService;
+    private EncryptionService encryptionService;
 
     @Autowired
-    public HistoryCotroller(FxWeaver fxWeaver, WebSocketService webSocketService) {
+    public HistoryCotroller(FxWeaver fxWeaver,
+                            WebSocketService webSocketService,
+                            EncryptionService encryptionService) {
         this.fxWeaver = fxWeaver;
         this.webSocketService = webSocketService;
+        this.encryptionService = encryptionService;
         this.webSocketService.registerListener(new EnvelopeListener());
         logger.debug("Constructor");
     }
@@ -45,7 +52,8 @@ public class HistoryCotroller {
         logger.debug("initialize");
     }
 
-    public void setHistory(InterlocutorDto interlocutorDto) {
+    public void setHistory(UserDto userDto, InterlocutorDto interlocutorDto) {
+        this.userDto = userDto;
         this.interlocutorDto = interlocutorDto;
 
         history.getChildren().clear();
@@ -54,7 +62,6 @@ public class HistoryCotroller {
         if (envelopes == null) {
             return;
         }
-        // TODO: decrypt all. sort by time.
 
         for (var envelope : envelopes) {
             drawEnvelope(envelope);
@@ -75,8 +82,7 @@ public class HistoryCotroller {
         var messageView = message.getView().orElse(new Label("Error loading view!"));
 
         var letter = envelope.getLetter();
-        // TODO: decryptLetter. (EncryptionService)
-        String text = letter.getText();
+        String text = encryptionService.decrypt(userDto.getPrivateKey(), letter.getText());
         OffsetDateTime timestamp = letter.getCreateTime();
         Pos alignment = getAlignment(envelope);
 

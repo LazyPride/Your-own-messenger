@@ -13,7 +13,7 @@ public class LetterDto implements Comparable<LetterDto> {
 
     private OffsetDateTime createTime;
 
-    private String text;
+    private byte[] text;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

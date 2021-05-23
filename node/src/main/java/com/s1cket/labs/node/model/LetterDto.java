@@ -12,5 +12,5 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LetterDto implements Serializable {
-    private String text;
+    private byte[] text;
 }

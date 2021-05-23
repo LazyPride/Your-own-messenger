@@ -1,6 +1,7 @@
 package com.s1cket.labs.client.controller.user.chat;
 
 import com.s1cket.labs.client.model.dto.*;
+import com.s1cket.labs.client.service.EncryptionService;
 import com.s1cket.labs.client.service.EnvelopeService;
 import com.s1cket.labs.client.service.WebSocketService;
 import javafx.fxml.FXML;
@@ -34,16 +35,19 @@ public class SendController {
     private final EnvelopeService envelopeService;
     private HistoryCotroller historyCotroller;
     private WebSocketService webSocketService;
+    private EncryptionService encryptionService;
 
     @Autowired
     public SendController(FxWeaver fxWeaver,
                           EnvelopeService envelopeService,
                           HistoryCotroller historyCotroller,
-                          WebSocketService webSocketService) {
+                          WebSocketService webSocketService,
+                          EncryptionService encryptionService) {
         this.fxWeaver = fxWeaver;
         this.envelopeService = envelopeService;
         this.historyCotroller = historyCotroller;
         this.webSocketService = webSocketService;
+        this.encryptionService = encryptionService;
         logger.debug("Constructor");
     }
 
@@ -64,7 +68,8 @@ public class SendController {
 
     public void handleSend(MouseEvent mouseEvent) {
         var text = textArea.getText();
-        // TODO: Encode text
+        var encryptedText = encryptionService.encrypt(interlocutorDto.getPublicKey(), text);
+        var encryptedTextForMe = encryptionService.encrypt(userDto.getPublicKey(), text);
         var timestamp = OffsetDateTime.now();
 
         EnvelopeDto envelopeDto = EnvelopeDto.builder()
@@ -74,7 +79,7 @@ public class SendController {
                 .build();
 
         LetterDto letterDto = LetterDto.builder()
-                .text(text)
+                .text(encryptedTextForMe)
                 .createTime(timestamp)
                 .envelope(envelopeDto)
                 .build();
@@ -84,7 +89,7 @@ public class SendController {
         var savedEnvelope = envelopeService.save(envelopeDto);
         logger.info("" + savedEnvelope);
 
-        var letter = new LetterWebDto(envelopeDto.getLetter().getText());
+        var letter = new LetterWebDto(encryptedText);
 
         var envelope = EnvelopeWebDto.builder()
                 .addressFrom(envelopeDto.getAddressFrom())

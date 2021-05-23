@@ -19,7 +19,7 @@ public class LetterEntity implements Comparable<LetterEntity> {
     @CreationTimestamp
     private OffsetDateTime createTime;
 
-    private String text;
+    private byte[] text;
 
     @OneToOne
     @MapsId

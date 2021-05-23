@@ -74,7 +74,7 @@ public class InterlocutorMenuController {
                                 + selectedInterlocutor + " is not found!"));
                 logger.info("Loading for " + interlocutorDto);
                 headerController.setHeader(interlocutorDto);
-                historyCotroller.setHistory(interlocutorDto);
+                historyCotroller.setHistory(userDto, interlocutorDto);
                 sendController.setInterlocutor(interlocutorDto);
             }
         }

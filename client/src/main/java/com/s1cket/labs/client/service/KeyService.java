@@ -57,6 +57,13 @@ public class KeyService {
     }
 
     public KeyPair createKeyPair(byte[] publicKeyBytes, byte[] privateKeyBytes) {
+        PrivateKey privateKey = createPrivateKey(privateKeyBytes);
+        PublicKey publicKey = createPublicKey(publicKeyBytes);
+
+        return new KeyPair(publicKey, privateKey);
+    }
+
+    public PrivateKey createPrivateKey(byte[] privateKeyBytes) {
         KeyFactory keyFactory = null;
         try {
             keyFactory = KeyFactory.getInstance("EC");
@@ -71,6 +78,17 @@ public class KeyService {
             e.printStackTrace();
         }
 
+        return privateKey;
+    }
+
+    public PublicKey createPublicKey(byte[] publicKeyBytes) {
+        KeyFactory keyFactory = null;
+        try {
+            keyFactory = KeyFactory.getInstance("EC");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
         EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(publicKeyBytes);
         PublicKey publicKey = null;
         try {
@@ -79,7 +97,15 @@ public class KeyService {
             e.printStackTrace();
         }
 
-        return new KeyPair(publicKey, privateKey);
+        return publicKey;
+    }
+
+    public PrivateKey createPrivateKey(String privateKey) {
+        return createPrivateKey(hexToBytes(privateKey));
+    }
+
+    public PublicKey createPublicKey(String publicKey) {
+        return createPublicKey(hexToBytes(publicKey));
     }
 
     public byte[] getAddress(PublicKey publicKey) {

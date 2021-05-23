@@ -9,5 +9,5 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LetterWebDto implements Serializable {
-    private String text;
+    private byte[] text;
 }
